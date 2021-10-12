@@ -7,5 +7,6 @@ class PagesController < ApplicationController
   end
 
   def home
+    @projects = Project.all.limit(100)
   end
 end

@@ -1,2 +1,8 @@
-<h1>Pages#home</h1>
+<h1>Home page</h1>
+
+<% @projects.each do |project| %>
+	<p><strong><%= project.title %></strong></p>
+	<p><strong><% project.description %></strong></p>
+<%end%>
+<p>Inside end its gonna be embed message, this code block we can manipulate</p>
 <p>Find me in app/views/pages/home.html.erb</p>

@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+
+@font-face{
+    font-family: "SuperMario256";
+    src: url('/assets/SuperMario256');
+}
+
+body{
+    margin: 42px;
+}
+
+h1{
+    font-family: "SuperMario256";
+}

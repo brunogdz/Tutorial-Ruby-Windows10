@@ -1,6 +1,6 @@
 class Projects::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :set_project, only: [:show, :new, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :new, :edit, :create, :update, :destroy]
 
   def show
   end
@@ -14,16 +14,15 @@ class Projects::TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.project_id = @project_id
+    @task.project_id = @project.id
 
     respond_to do |format|
       if @task.save
-        format.html {redirect_to @task, notice: "Task was created nice job!"}
-        format.json {render :show, status: :created, location: @task }
+        format.html { redirect_to project_url(@task.project_id), notice: "Task was created successfully!"}
+        format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
-  
       end
     end
   end
@@ -31,12 +30,11 @@ class Projects::TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html {redirect_to @task, notice: "Task was updated! nice job!"}
-        format.json {render :show, status: :created, location: @task }
+        format.html { redirect_to project_url(@task.project_id), notice: "Task was updated successfully!"}
+        format.json { render :show, status: :created, location: @task }
       else
         format.html { render :edit }
         format.json { render json: @task.errors, status: :unprocessable_entity }
-  
       end
     end
   end
@@ -44,14 +42,14 @@ class Projects::TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html {redirect_to project_url(@task.project_id), notice: "Task was deleted! nice job!"}
-      format.json {head :no_content}
+      format.html { redirect_to project_url(@task.project_id), notice: "Task was deleted successfully!"}
+      format.json { head :no_content }
     end
   end
 
   private
+
     def set_task
-      # Para mostrar pelo id passamos o find pelo id
       @task = Task.find(params[:id])
     end
 
@@ -60,9 +58,8 @@ class Projects::TasksController < ApplicationController
     end
 
     def task_params
-      # dentro do permit é o whitelist
-    params.require(:task).permit(:title, :description, :project_id, :completed, :task_file)
-      
+      params.require(:task).permit(:title, :description, :project_id, :completed, :task_file)
+    end
       # t.string "title"
     # t.text "description"
     # t.integer "project_id", null: false
@@ -70,5 +67,5 @@ class Projects::TasksController < ApplicationController
     # t.datetime "updated_at", precision: 6, null: false
     # t.boolean "completed"
     # t.text "task_file"
-  end
+  
 end

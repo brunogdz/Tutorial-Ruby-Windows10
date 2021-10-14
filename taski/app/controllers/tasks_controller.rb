@@ -49,10 +49,20 @@ class TasksController < ApplicationController
 
   private
     def set_task
-
+      # Para mostrar pelo id passamos o find pelo id
+      @task = Task.find(params[:id])
     end
 
     def task_params
-    
-    end
+      # dentro do permit é o whitelist
+    params.require(:task).permit(:title, :description, :project_id, :completed, :task_file)
+      
+      # t.string "title"
+    # t.text "description"
+    # t.integer "project_id", null: false
+    # t.datetime "created_at", precision: 6, null: false
+    # t.datetime "updated_at", precision: 6, null: false
+    # t.boolean "completed"
+    # t.text "task_file"
+  end
 end

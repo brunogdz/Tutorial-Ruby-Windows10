@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # get 'tasks/show'
   # get 'tasks/new'
   # get 'tasks/edit'
